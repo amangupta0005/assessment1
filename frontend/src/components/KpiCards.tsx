@@ -10,13 +10,11 @@ interface KpiCardsProps {
 export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
   if (isLoading || !kpis) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-6 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 mb-6">
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className={`bg-white rounded-xl p-6 shadow-xs border border-slate-200 animate-pulse h-36 ${
-              i === 0 ? 'md:col-span-2 xl:col-span-2' : ''
-            }`}
+            className="bg-white rounded-xl p-5 shadow-xs border border-slate-200 animate-pulse h-40"
           />
         ))}
       </div>
@@ -26,28 +24,28 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
   const isOverForecasting = kpis.bias_mw < 0;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-6 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 mb-6">
       {/* 1. Trader Buying Buffer (P90 Shortfall) - Highlight Card */}
       <div
-        className="bg-amber-50/90 rounded-xl p-6 border-2 border-amber-400 shadow-xs relative overflow-hidden md:col-span-2 xl:col-span-2 flex flex-col justify-between"
+        className="bg-amber-50/95 rounded-xl p-5 border-2 border-amber-400 shadow-xs flex flex-col justify-between"
         title="P90 Shortfall Buffer: with 90% confidence, wind generation will not fall short of the day-ahead forecast by more than this volume."
       >
         <div>
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="flex items-center gap-2 text-[14px] font-semibold text-amber-950">
+          <div className="flex items-center justify-between gap-1 mb-2">
+            <span className="flex items-center gap-1.5 text-[14px] font-semibold text-amber-950">
               <ShieldAlert className="w-4 h-4 text-amber-600 flex-shrink-0" />
-              <span>P90 Shortfall Reserve Buffer</span>
+              <span>P90 Shortfall Buffer</span>
             </span>
-            <span className="bg-amber-200/90 text-amber-950 text-[13px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap">
+            <span className="bg-amber-200/90 text-amber-950 text-[12px] px-2 py-0.5 rounded-full font-semibold whitespace-nowrap">
               Trader key metric
             </span>
           </div>
 
-          <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-[36px] font-bold text-amber-950 tabular-nums tracking-tight leading-none">
+          <div className="flex items-baseline gap-1.5 mt-2">
+            <span className="text-[34px] font-bold text-amber-950 tabular-nums tracking-tight leading-none">
               +{Math.round(kpis.p90_shortfall_buffer_mw).toLocaleString()}
             </span>
-            <span className="text-[16px] font-medium text-[#7A4B00]">MW</span>
+            <span className="text-[15px] font-medium text-[#7A4B00]">MW</span>
           </div>
         </div>
 
@@ -58,25 +56,25 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
 
       {/* 2. MAE */}
       <div
-        className="bg-white rounded-xl p-6 shadow-xs border border-slate-200 flex flex-col justify-between"
+        className="bg-white rounded-xl p-5 shadow-xs border border-slate-200 flex flex-col justify-between"
         title="Mean Absolute Error (MAE): average magnitude of forecast errors without considering direction."
       >
         <div>
-          <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="flex items-center justify-between gap-1 mb-2">
             <span className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800">
               <Activity className="w-4 h-4 text-teal-600 flex-shrink-0" />
               <span>MAE</span>
             </span>
-            <span className="text-[13px] text-slate-600 font-semibold tabular-nums">
+            <span className="text-[12px] text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full font-semibold tabular-nums whitespace-nowrap">
               WAPE {kpis.wape_pct}%
             </span>
           </div>
 
           <div className="flex items-baseline gap-1.5 mt-2">
-            <span className="text-[36px] font-bold text-slate-900 tabular-nums tracking-tight leading-none">
+            <span className="text-[34px] font-bold text-slate-900 tabular-nums tracking-tight leading-none">
               {Math.round(kpis.mae_mw).toLocaleString()}
             </span>
-            <span className="text-[16px] font-medium text-slate-500">MW</span>
+            <span className="text-[15px] font-medium text-slate-500">MW</span>
           </div>
         </div>
 
@@ -87,25 +85,25 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
 
       {/* 3. RMSE */}
       <div
-        className="bg-white rounded-xl p-6 shadow-xs border border-slate-200 flex flex-col justify-between"
+        className="bg-white rounded-xl p-5 shadow-xs border border-slate-200 flex flex-col justify-between"
         title="Root Mean Squared Error (RMSE): penalizes larger deviations more heavily than MAE."
       >
         <div>
-          <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="flex items-center justify-between gap-1 mb-2">
             <span className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800">
               <BarChart3 className="w-4 h-4 text-teal-600 flex-shrink-0" />
               <span>RMSE</span>
             </span>
-            <span className="text-[13px] text-slate-600 font-medium tabular-nums">
+            <span className="text-[12px] text-slate-600 font-medium tabular-nums whitespace-nowrap">
               P95: {Math.round(kpis.p95_error_mw).toLocaleString()} MW
             </span>
           </div>
 
           <div className="flex items-baseline gap-1.5 mt-2">
-            <span className="text-[36px] font-bold text-slate-900 tabular-nums tracking-tight leading-none">
+            <span className="text-[34px] font-bold text-slate-900 tabular-nums tracking-tight leading-none">
               {Math.round(kpis.rmse_mw).toLocaleString()}
             </span>
-            <span className="text-[16px] font-medium text-slate-500">MW</span>
+            <span className="text-[15px] font-medium text-slate-500">MW</span>
           </div>
         </div>
 
@@ -116,17 +114,17 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
 
       {/* 4. Forecast Bias */}
       <div
-        className="bg-white rounded-xl p-6 shadow-xs border border-slate-200 flex flex-col justify-between"
+        className="bg-white rounded-xl p-5 shadow-xs border border-slate-200 flex flex-col justify-between"
         title="Forecast Bias (Mean Error = Actual - Forecast): indicates systematic over- or under-forecasting."
       >
         <div>
-          <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="flex items-center justify-between gap-1 mb-2">
             <span className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800">
               <TrendingUp className="w-4 h-4 text-teal-600 flex-shrink-0" />
               <span>Forecast Bias</span>
             </span>
             <span
-              className={`text-[13px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${
+              className={`text-[12px] px-2 py-0.5 rounded-full font-semibold whitespace-nowrap ${
                 isOverForecasting
                   ? 'bg-rose-100 text-rose-800'
                   : 'bg-emerald-100 text-emerald-800'
@@ -138,7 +136,7 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
 
           <div className="flex items-baseline gap-1.5 mt-2">
             <span
-              className={`text-[36px] font-bold tabular-nums tracking-tight leading-none ${
+              className={`text-[34px] font-bold tabular-nums tracking-tight leading-none ${
                 isOverForecasting ? 'text-rose-600' : 'text-emerald-700'
               }`}
             >
@@ -146,7 +144,7 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
                 ? `+${Math.round(kpis.bias_mw).toLocaleString()}`
                 : Math.round(kpis.bias_mw).toLocaleString()}
             </span>
-            <span className="text-[16px] font-medium text-slate-500">MW</span>
+            <span className="text-[15px] font-medium text-slate-500">MW</span>
           </div>
         </div>
 
@@ -157,25 +155,25 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isLoading }) => {
 
       {/* 5. Data Coverage */}
       <div
-        className="bg-white rounded-xl p-6 shadow-xs border border-slate-200 flex flex-col justify-between"
+        className="bg-white rounded-xl p-5 shadow-xs border border-slate-200 flex flex-col justify-between"
         title="Data Completeness: percentage of target delivery hours with verified pre-cutoff forecasts."
       >
         <div>
-          <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="flex items-center justify-between gap-1 mb-2">
             <span className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800">
               <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
               <span>Completeness</span>
             </span>
-            <span className="text-[13px] text-emerald-800 font-semibold tabular-nums">
+            <span className="text-[12px] text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold tabular-nums whitespace-nowrap">
               {kpis.data_completeness_pct}%
             </span>
           </div>
 
           <div className="flex items-baseline gap-1.5 mt-2">
-            <span className="text-[36px] font-bold text-slate-900 tabular-nums tracking-tight leading-none">
+            <span className="text-[34px] font-bold text-slate-900 tabular-nums tracking-tight leading-none">
               {kpis.matched_periods}
             </span>
-            <span className="text-[16px] font-medium text-slate-500">
+            <span className="text-[15px] font-medium text-slate-500">
               / {kpis.total_periods} hrs
             </span>
           </div>
