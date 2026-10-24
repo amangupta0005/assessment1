@@ -115,3 +115,5 @@ notes/
 private/
 *.local.md
 
+
+.vercel
