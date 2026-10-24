@@ -100,3 +100,18 @@ frontend/.vite/
 scratch/
 tmp/
 .temp/
+
+# Personal Video Scripts, Media Recordings & Private Prep (Hidden from reviewers)
+docs/VIDEO_SCRIPT.md
+*video_script*
+*VIDEO_SCRIPT*
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.m4v
+notes/
+private/
+*.local.md
+
