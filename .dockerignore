@@ -1,0 +1,15 @@
+node_modules
+*/node_modules
+__pycache__
+*/__pycache__
+*/*/__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+.pytest_cache
+.vscode
+.idea
+dist
+frontend/dist
+.env*
