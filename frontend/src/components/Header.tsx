@@ -19,14 +19,14 @@ export const Header: React.FC<HeaderProps> = ({ cutoffTime, onOpenHelp }) => {
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <h1 className="text-[24px] sm:text-[28px] font-bold tracking-tight text-white leading-tight">
-                  UK Day-Ahead Wind Forecast Evaluation Platform
+                  WindWatchGB
                 </h1>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[13px] font-semibold bg-teal-900/90 text-teal-200 border border-teal-700/80">
                   January 2026
                 </span>
               </div>
               <p className="text-[14px] sm:text-[15px] text-[#C9D6E8] mt-1 font-normal leading-normal">
-                Day-ahead power trading intelligence • Elexon BMRS WINDFOR vs FUELHH • Zero data leakage
+                UK Day-Ahead Wind Forecast Evaluation Platform • Elexon BMRS WINDFOR vs FUELHH • Zero data leakage
               </p>
             </div>
           </div>

@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 class Settings:
-    PROJECT_NAME: str = "UK Day-Ahead Wind Forecast Evaluation Platform"
+    PROJECT_NAME: str = "WindWatchGB"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api"
     

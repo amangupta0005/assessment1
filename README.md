@@ -1,4 +1,4 @@
-# UK Day-Ahead Wind Forecast Evaluation Platform
+# WindWatchGB — UK Day-Ahead Wind Forecast Evaluation Platform
 
 > **Take-Home Assessment for UK Energy Utility**  
 > Physical Delivery Scope: **January 2026** (GB Wholesale Electricity Market)  
