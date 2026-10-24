@@ -1,29 +1,101 @@
 @import "tailwindcss";
 
 :root {
-  /* Design Tokens - Energy Utility Palette (Zero purple/violet) */
+  /* ==========================================================================
+     Design Tokens: Typography & Type Scale
+     ========================================================================== */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --font-size-page-title: 28px;
+  --line-height-page-title: 34px;
+  --font-weight-page-title: 700;
+
+  --font-size-section-title: 20px;
+  --line-height-section-title: 28px;
+  --font-weight-section-title: 600;
+
+  --font-size-kpi-value: 36px;
+  --line-height-kpi-value: 40px;
+  --font-weight-kpi-value: 700;
+  --letter-spacing-kpi-value: -0.01em;
+
+  --font-size-kpi-label: 14px;
+  --line-height-kpi-label: 20px;
+  --font-weight-kpi-label: 600;
+
+  --font-size-body: 15px;
+  --line-height-body: 1.5;
+  --font-weight-body: 400;
+
+  --font-size-caption: 13px;
+  --line-height-caption: 18px;
+
+  /* ==========================================================================
+     Design Tokens: Palette (Navy / Teal / Amber - Zero Purple/Indigo)
+     ========================================================================== */
   --color-navy-950: #09111e;
   --color-navy-900: #0f172a;
   --color-navy-800: #1e293b;
-  --color-slate-850: #172033;
-  --color-slate-750: #25334d;
-  
-  --color-teal-500: #0d9488;
-  --color-teal-600: #0f766e;
+  --color-header-subtitle: #c9d6e8;
+
+  --color-slate-900: #0f172a;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+
   --color-teal-700: #115e59;
-  
-  --color-emerald-500: #059669;
+  --color-teal-600: #0f766e;
+  --color-teal-500: #0d9488;
+  --color-teal-50: #f0fdfa;
+
+  --color-amber-600: #b45309;
   --color-amber-500: #d97706;
+  --color-amber-brown: #7a4b00;
+  --color-amber-50: #fffbeb;
+
+  --color-rose-600: #be123c;
   --color-rose-500: #e11d48;
+  --color-rose-200: #fecdd3;
+  --color-rose-area: rgba(239, 68, 68, 0.20);
+
+  --color-emerald-700: #047857;
+  --color-emerald-600: #059669;
+  --color-emerald-50: #ecfdf5;
+
+  /* ==========================================================================
+     Card Spacing & Shadow Tokens
+     ========================================================================== */
+  --card-padding: 24px;
+  --card-gap: 24px;
+  --card-radius: 12px;
+  --card-border: 1px solid #e2e8f0;
+  --card-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #f8fafc;
-  color: #0f172a;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-slate-50);
+  color: var(--color-slate-900);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure tabular numbers for clean alignment without monospace appearance */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Minimum touch target utility */
+.min-touch-target {
+  min-height: 40px;
 }
 
 /* Custom Scrollbar */

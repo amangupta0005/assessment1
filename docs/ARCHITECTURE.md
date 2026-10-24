@@ -63,8 +63,26 @@ flowchart TD
 - **`main.py`**: FastAPI entrypoint with CORS and fallback static file serving.
 
 ### 2.3 Trading Dashboard (`frontend/`)
-- **Technology**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide-react.
-- **Design Tokens**: Defined in `src/index.css` using deep navy (`#0B192C`), slate (`#1E293B`), teal (`#0F766E`), amber (`#F59E0B`), and rose (`#EF4444`). Meets WCAG AA contrast standards with zero purple/violet AI templates.
+- **Technology**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide-react, `@fontsource/inter`.
+- **Typography Tokens (Self-Hosted Inter)**:
+  - Global Font Family: `'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`
+  - Page Title: `28px / 700` (`leading-tight`)
+  - Section/Chart Titles: `20px / 600` (`tracking-tight`)
+  - KPI Values: `36px / 700` (`letter-spacing: -0.01em`, `tabular-nums`)
+  - KPI Labels: `14px / 600`
+  - Body & Descriptions: `15px / 400` (`line-height: 1.5`)
+  - Helper & Badges: `13px+` (zero uppercase/tiny-text anti-patterns)
+  - Zero monospace on values/badges: uses `font-variant-numeric: tabular-nums` for clean digit alignment without looking like code.
+- **Palette Tokens (Energy Utility Theme — WCAG AA)**:
+  - Navy Neutrals: `--color-navy-950` (`#09111E`), `--color-navy-900` (`#0F172A`), `--color-navy-800` (`#1E293B`)
+  - Header Subtitle: `--color-header-subtitle` (`#C9D6E8`)
+  - Slate Surfaces: `--color-slate-600` (`#475569`), `--color-slate-200` (`#E2E8F0`), `--color-slate-50` (`#F8FAFC`)
+  - Primary Teal: `--color-teal-600` (`#0F766E`), `--color-teal-500` (`#0D9488`)
+  - Downside Deficit Warning: `--color-amber-500` (`#D97706`), description text `--color-amber-brown` (`#7A4B00`)
+  - Chart Shortfall Area: `--color-rose-area` (`rgba(239, 68, 68, 0.20)`)
+- **Card Spacing & Metrics**:
+  - Consistent `24px` padding (`p-6`), `24px` gaps (`gap-6`), subtle border (`#E2E8F0`), and soft shadow (`shadow-xs`).
+  - Interactive elements have minimum `40px` touch target with `2px` teal focus rings.
 - **Components**:
   - `Header`: Gate closure indicator, anti-leakage status, and help trigger.
   - `HelpModal`: Modal explaining cutoff rules and metrics.

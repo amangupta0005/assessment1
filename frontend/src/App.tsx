@@ -73,7 +73,7 @@ export const App: React.FC = () => {
   }, [loadAllData]);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-800">
+    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 font-sans">
       {/* Top Header */}
       <Header cutoffTime={filters.cutoffTime} onOpenHelp={() => setIsHelpOpen(true)} />
 
@@ -84,17 +84,17 @@ export const App: React.FC = () => {
 
         {/* Error Banner */}
         {error && (
-          <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl flex items-start justify-between gap-3 text-rose-800 text-xs shadow-sm">
-            <div className="flex items-center gap-2">
+          <div className="mb-6 p-4 bg-rose-50 border border-rose-300 rounded-xl flex items-start justify-between gap-3 text-rose-900 text-[14px] shadow-xs">
+            <div className="flex items-center gap-2.5">
               <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0" />
               <div>
-                <p className="font-bold">Failed to load platform data</p>
-                <p className="mt-0.5 text-rose-700">{error}</p>
+                <p className="font-semibold text-rose-950">Failed to load platform data</p>
+                <p className="mt-0.5 text-rose-800">{error}</p>
               </div>
             </div>
             <button
               onClick={loadAllData}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-rose-600 text-white rounded-md font-semibold hover:bg-rose-700 transition-colors"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 bg-rose-700 text-white rounded-lg text-[13px] font-semibold hover:bg-rose-800 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Retry</span>
@@ -127,10 +127,10 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 text-xs py-6 mt-auto">
+      <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 text-[13px] py-6 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>© 2026 UK Energy Utility • Day-Ahead Commercial Power Procurement Desk</p>
-          <p className="text-slate-500 font-mono text-[11px]">
+          <p className="text-slate-300">© 2026 UK Energy Utility • Day-Ahead Commercial Power Procurement Desk</p>
+          <p className="text-[#C9D6E8] text-[13px]">
             Data Source: Elexon BMRS (FUELHH & WINDFOR) • Strictly January 2026
           </p>
         </div>

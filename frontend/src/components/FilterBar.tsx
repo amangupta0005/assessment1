@@ -10,11 +10,11 @@ interface FilterBarProps {
 }
 
 const CUTOFF_OPTIONS = [
-  { value: '07:00', label: '07:00 GMT (Early)' },
-  { value: '08:00', label: '08:00 GMT (Pre-Auction)' },
-  { value: '09:00', label: '09:00 GMT (Default Gate Closure)' },
-  { value: '10:00', label: '10:00 GMT' },
-  { value: '11:00', label: '11:00 GMT (Auction Close)' },
+  { value: '07:00', label: '07:00 GMT (Early morning)' },
+  { value: '08:00', label: '08:00 GMT (Pre-auction)' },
+  { value: '09:00', label: '09:00 GMT (Default gate closure)' },
+  { value: '10:00', label: '10:00 GMT (Mid-morning)' },
+  { value: '11:00', label: '11:00 GMT (Auction close)' },
   { value: '12:00', label: '12:00 GMT (Noon)' },
   { value: '14:00', label: '14:00 GMT (Afternoon)' },
 ];
@@ -41,21 +41,21 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-5 mb-6">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+    <div className="bg-white rounded-xl shadow-xs border border-slate-200 p-6 mb-6">
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
         {/* Controls Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 flex-1">
           {/* Decision Cutoff Selector */}
           <div>
-            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-1.5">
-              <Clock className="w-3.5 h-3.5 text-teal-600" />
+            <label className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800 mb-2">
+              <Clock className="w-4 h-4 text-teal-600 flex-shrink-0" />
               <span>Day D-1 Decision Cutoff</span>
             </label>
             <select
               value={filters.cutoffTime}
               onChange={handleCutoffChange}
               disabled={isLoading}
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 disabled:opacity-50"
+              className="w-full h-10 bg-slate-50 border border-slate-300 rounded-lg px-3 text-[14px] font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 disabled:opacity-50 transition-shadow"
             >
               {CUTOFF_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -67,8 +67,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
 
           {/* Date Range Selection */}
           <div>
-            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-1.5">
-              <Calendar className="w-3.5 h-3.5 text-teal-600" />
+            <label className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800 mb-2">
+              <Calendar className="w-4 h-4 text-teal-600 flex-shrink-0" />
               <span>Target Delivery Date Range</span>
             </label>
             <div className="flex items-center gap-2">
@@ -79,9 +79,10 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
                 value={filters.startDate}
                 onChange={handleStartDateChange}
                 disabled={isLoading}
-                className="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                aria-label="Start date"
+                className="w-full h-10 bg-slate-50 border border-slate-300 rounded-lg px-3 text-[14px] text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 transition-shadow"
               />
-              <span className="text-slate-400 text-xs">to</span>
+              <span className="text-slate-500 text-[14px] font-medium px-1">to</span>
               <input
                 type="date"
                 min="2026-01-01"
@@ -89,24 +90,25 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
                 value={filters.endDate}
                 onChange={handleEndDateChange}
                 disabled={isLoading}
-                className="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                aria-label="End date"
+                className="w-full h-10 bg-slate-50 border border-slate-300 rounded-lg px-3 text-[14px] text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 transition-shadow"
               />
             </div>
           </div>
 
           {/* Granularity & Mode Toggle */}
           <div>
-            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-1.5">
-              <Layers className="w-3.5 h-3.5 text-teal-600" />
+            <label className="flex items-center gap-1.5 text-[14px] font-semibold text-slate-800 mb-2">
+              <Layers className="w-4 h-4 text-teal-600 flex-shrink-0" />
               <span>Actuals Harmonization</span>
             </label>
-            <div className="inline-flex rounded-lg border border-slate-200 bg-slate-100 p-0.5 w-full">
+            <div className="inline-flex h-10 rounded-lg border border-slate-300 bg-slate-100 p-1 w-full">
               <button
                 type="button"
                 onClick={() => handleGranularityToggle('hourly')}
-                className={`flex-1 text-center py-1.5 px-3 text-xs font-medium rounded-md transition-colors ${
+                className={`flex-1 text-center py-1.5 px-3 text-[13px] font-medium rounded-md transition-all ${
                   filters.granularity === 'hourly'
-                    ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                    ? 'bg-white text-slate-900 shadow-xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -115,9 +117,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
               <button
                 type="button"
                 onClick={() => handleGranularityToggle('exact')}
-                className={`flex-1 text-center py-1.5 px-3 text-xs font-medium rounded-md transition-colors ${
+                className={`flex-1 text-center py-1.5 px-3 text-[13px] font-medium rounded-md transition-all ${
                   filters.granularity === 'exact'
-                    ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                    ? 'bg-white text-slate-900 shadow-xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -128,35 +130,35 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
         </div>
 
         {/* Action Buttons: Presets & CSV Export */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 lg:pt-0 lg:border-l lg:border-slate-200 lg:pl-4">
+        <div className="flex flex-wrap items-center gap-2 pt-2 xl:pt-0 xl:border-l xl:border-slate-200 xl:pl-5">
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => setPreset('2026-01-01', '2026-01-31')}
-              className="px-2.5 py-1.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+              className="h-10 px-3 text-[13px] rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-600"
             >
               Full Jan
             </button>
             <button
               onClick={() => setPreset('2026-01-01', '2026-01-07')}
-              className="px-2 py-1.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+              className="h-10 px-2.5 text-[13px] rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-600"
             >
               W1
             </button>
             <button
               onClick={() => setPreset('2026-01-08', '2026-01-14')}
-              className="px-2 py-1.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+              className="h-10 px-2.5 text-[13px] rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-600"
             >
               W2
             </button>
             <button
               onClick={() => setPreset('2026-01-15', '2026-01-21')}
-              className="px-2 py-1.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+              className="h-10 px-2.5 text-[13px] rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-600"
             >
               W3
             </button>
             <button
               onClick={() => setPreset('2026-01-22', '2026-01-31')}
-              className="px-2 py-1.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+              className="h-10 px-2.5 text-[13px] rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors border border-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-600"
             >
               W4+
             </button>
@@ -165,9 +167,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onChange, isLoadi
           <a
             href={getExportUrl(filters)}
             download
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-[14px] font-semibold shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2 ml-1"
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-4 h-4 flex-shrink-0" />
             <span>Export CSV</span>
           </a>
         </div>

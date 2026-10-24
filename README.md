@@ -44,7 +44,26 @@ For full mathematical proofs and worked examples, see [docs/METHODOLOGY.md](docs
 
 ---
 
-## 4. Repository Structure
+## 4. UI Design Tokens & Typography
+
+The dashboard implements a calm, professional UK energy utility design system configured in `frontend/src/index.css`:
+- **Typography (Self-Hosted Inter)**:
+  - Font family: `'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`
+  - Zero external CDN dependencies (bundled offline via `@fontsource/inter` `.woff2` files)
+  - Zero monospace on values/chips: uses `font-variant-numeric: tabular-nums` for clean digit alignment
+  - Type scale: Page Title (28px / 700), Section Titles (20px / 600), KPI Values (36px / 700), Labels (14px / 600), Body (15px / 400), Captions/Ticks (13px / 500 minimum; nothing smaller than 12px)
+- **Palette (WCAG AA Compliant — Zero Purple/Indigo)**:
+  - Header: Deep Navy `#0F172A` with light grey-blue subtitle `#C9D6E8`
+  - Cards: Pure white surface with `#0F172A` primary text and `#475569` secondary text
+  - Charts: 2.5px solid navy actual line (`#0F172A`), 2.5px dashed teal forecast line (`#0D9488`), 20% soft red shortfall deficit shading
+  - Highlight Card: Amber surface with dark brown body text (`#7A4B00`) for high contrast readability
+- **Spacing & Touch Targets**:
+  - Consistent 24px card padding (`p-6`) and 24px grid gaps (`gap-6`)
+  - Minimum 40px touch targets for all interactive inputs and buttons with 2px teal focus rings
+
+---
+
+## 5. Repository Structure
 
 ```
 assessment/
