@@ -3,7 +3,7 @@
 > **Take-Home Assessment for UK Energy Utility**  
 > Physical Delivery Scope: **January 2026** (GB Wholesale Electricity Market)  
 > Data Source: **Elexon BMRS** (`FUELHH` Actuals & `WINDFOR` Forecasts)  
-> Live App Deployment: **[https://assessment-mocha-pi.vercel.app](https://assessment-mocha-pi.vercel.app)**
+> Live App Deployment: **[https://windwatchgb.vercel.app](https://windwatchgb.vercel.app)**
 
 ---
 
