@@ -22,15 +22,23 @@ _cached_forecasts: Optional[pd.DataFrame] = None
 def load_actuals(force_reload: bool = False) -> pd.DataFrame:
     """
     Load January 2026 actuals (FUELHH) with memory caching.
-    Supports both Parquet and JSON.
+    Supports both Parquet and JSON with graceful fallback.
     """
     global _cached_actuals
     if _cached_actuals is not None and not force_reload:
         return _cached_actuals
 
+    df = None
     if settings.ACTUALS_PARQUET.exists():
-        logger.info("Loading actuals from Parquet: %s", settings.ACTUALS_PARQUET)
-        df = pd.read_parquet(settings.ACTUALS_PARQUET)
+        try:
+            logger.info("Loading actuals from Parquet: %s", settings.ACTUALS_PARQUET)
+            df = pd.read_parquet(settings.ACTUALS_PARQUET)
+        except Exception as e:
+            logger.warning("Failed to load actuals from Parquet, falling back to JSON: %s", e)
+            if settings.ACTUALS_JSON.exists():
+                df = pd.read_json(settings.ACTUALS_JSON)
+            else:
+                raise
     elif settings.ACTUALS_JSON.exists():
         logger.info("Loading actuals from JSON: %s", settings.ACTUALS_JSON)
         df = pd.read_json(settings.ACTUALS_JSON)
@@ -50,15 +58,23 @@ def load_actuals(force_reload: bool = False) -> pd.DataFrame:
 def load_forecasts(force_reload: bool = False) -> pd.DataFrame:
     """
     Load January 2026 forecasts (WINDFOR) with memory caching.
-    Supports both Parquet and JSON.
+    Supports both Parquet and JSON with graceful fallback.
     """
     global _cached_forecasts
     if _cached_forecasts is not None and not force_reload:
         return _cached_forecasts
 
+    df = None
     if settings.FORECASTS_PARQUET.exists():
-        logger.info("Loading forecasts from Parquet: %s", settings.FORECASTS_PARQUET)
-        df = pd.read_parquet(settings.FORECASTS_PARQUET)
+        try:
+            logger.info("Loading forecasts from Parquet: %s", settings.FORECASTS_PARQUET)
+            df = pd.read_parquet(settings.FORECASTS_PARQUET)
+        except Exception as e:
+            logger.warning("Failed to load forecasts from Parquet, falling back to JSON: %s", e)
+            if settings.FORECASTS_JSON.exists():
+                df = pd.read_json(settings.FORECASTS_JSON)
+            else:
+                raise
     elif settings.FORECASTS_JSON.exists():
         logger.info("Loading forecasts from JSON: %s", settings.FORECASTS_JSON)
         df = pd.read_json(settings.FORECASTS_JSON)

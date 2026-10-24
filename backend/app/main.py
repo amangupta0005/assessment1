@@ -1,10 +1,11 @@
 """
 backend/app/main.py
 ===================
-Entry point for UK Day-Ahead Wind Forecast Evaluation Platform API.
+Entry point for WindWatchGB (UK Day-Ahead Wind Forecast Evaluation Platform) API.
 """
 
 from pathlib import Path
+from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -31,8 +32,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register API routers
+# Register API routers (support both with and without /api prefix for Vercel and local dev)
 app.include_router(wind_router, prefix=settings.API_V1_STR)
+app.include_router(wind_router, prefix="")
 
 
 @app.get("/health", response_model=HealthResponse, tags=["health"])
@@ -49,7 +51,41 @@ def health_check() -> HealthResponse:
     )
 
 
-# Serve frontend static files if built (e.g. in Docker or production deployment)
-frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
-if frontend_dist.exists() and (frontend_dist / "index.html").exists():
+@app.get("/api", tags=["root"])
+def api_root():
+    """API info endpoint."""
+    return {
+        "platform": settings.PROJECT_NAME,
+        "version": settings.VERSION,
+        "status": "operational",
+        "docs": "/docs",
+    }
+
+
+def get_frontend_dist() -> Optional[Path]:
+    """Locate the built frontend distribution directory."""
+    candidates = [
+        Path(__file__).resolve().parent.parent.parent / "frontend" / "dist",
+        Path.cwd() / "frontend" / "dist",
+        Path("/var/task/frontend/dist"),
+    ]
+    for c in candidates:
+        if c.exists() and (c / "index.html").exists():
+            return c
+    return None
+
+
+frontend_dist = get_frontend_dist()
+if frontend_dist is not None:
+    # Serve single-page frontend application at root
     app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="static")
+else:
+    @app.get("/", tags=["root"])
+    def root_fallback():
+        return {
+            "platform": settings.PROJECT_NAME,
+            "version": settings.VERSION,
+            "status": "operational",
+            "message": "Frontend build not detected. Visit /docs for API documentation.",
+            "docs": "/docs",
+        }

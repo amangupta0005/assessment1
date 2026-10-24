@@ -5,6 +5,7 @@ Configuration management for UK Wind Forecast Evaluation Platform.
 """
 
 from pathlib import Path
+import os
 
 
 class Settings:
@@ -12,18 +13,44 @@ class Settings:
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api"
     
-    # Paths
-    BASE_DIR: Path = Path(__file__).resolve().parent.parent.parent
-    DATA_DIR: Path = BASE_DIR / "data"
-    ACTUALS_PARQUET: Path = DATA_DIR / "actuals_jan_2026.parquet"
-    ACTUALS_JSON: Path = DATA_DIR / "actuals_jan_2026.json"
-    FORECASTS_PARQUET: Path = DATA_DIR / "forecasts_jan_2026.parquet"
-    FORECASTS_JSON: Path = DATA_DIR / "forecasts_jan_2026.json"
-    
     # Defaults
     DEFAULT_CUTOFF_TIME: str = "09:00"  # UK local time (GMT) on D-1
     DEFAULT_START_DATE: str = "2026-01-01"
     DEFAULT_END_DATE: str = "2026-01-31"
+
+    @property
+    def BASE_DIR(self) -> Path:
+        return Path(__file__).resolve().parent.parent.parent
+
+    @property
+    def DATA_DIR(self) -> Path:
+        candidates = [
+            self.BASE_DIR / "data",
+            Path.cwd() / "data",
+            Path("/var/task/data"),
+            Path("/var/task/api/data"),
+            Path(__file__).resolve().parent.parent / "data",
+        ]
+        for c in candidates:
+            if c.exists() and ((c / "actuals_jan_2026.parquet").exists() or (c / "actuals_jan_2026.json").exists()):
+                return c
+        return self.BASE_DIR / "data"
+
+    @property
+    def ACTUALS_PARQUET(self) -> Path:
+        return self.DATA_DIR / "actuals_jan_2026.parquet"
+
+    @property
+    def ACTUALS_JSON(self) -> Path:
+        return self.DATA_DIR / "actuals_jan_2026.json"
+
+    @property
+    def FORECASTS_PARQUET(self) -> Path:
+        return self.DATA_DIR / "forecasts_jan_2026.parquet"
+
+    @property
+    def FORECASTS_JSON(self) -> Path:
+        return self.DATA_DIR / "forecasts_jan_2026.json"
 
 
 settings = Settings()
